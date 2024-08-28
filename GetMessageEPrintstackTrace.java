@@ -1,25 +1,29 @@
 import javax.swing.JOptionPane;
-import java.util.concurrent.ExecutionException;
-
-public class GetMessageEPrintstackTrace {
-    public static void main(String args[]) {
-        // Caixa de execução
-
-        int x = Integer.parseInt(JOptionPane.showInputDialog("Forneça um número"));
-        /* Variável x recebe valores do tipo String transportados para int pelo metodo parseInt
-         Exibe na tela mensagem de dialogo com o usuário
-         */
-
-
+public class InstrucaoThrows {
+    public static void main(String[] args) throws Exception {
+        // Caixa de execução com metodo throws(erro) Exeption(exceção)
         try {
-            int y = x / 0;
-            // Variável y, do tipo int, recebe o valor de x dividido por 0
+            int idade = Integer.parseInt(JOptionPane.showInputDialog("Forneça sua idade"));
+            /* Variavável idade, do tipo int, recebe valores do tipo String
+            transportados para int pelo metodo parseInt
+
+            Exibe mensagem de dialogo com o usuário
+            */
+
+            if (idade < 18) {
+                throw new Exception("Menor de idade, entrada não permitida!");
+                // Se idade for menor que 18, exibe na tela a mensagem de entreada não permitida
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Idade válida, seja bem vindo(a)!");
+                //Caso contrário, exibe na tela a mensagem de idade válida
+            }
 
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null, erro.getMessage());
-            erro.printStackTrace();
+            JOptionPane.showMessageDialog(null, erro.toString());
+            // Caso haja algum erro, exibe na tela a mensagem de erro de exceção
 
-            // Caso ocorra algum erro, exibe na tela a mensagem de erro getMessage
         }
     }
+
 }
