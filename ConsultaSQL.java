@@ -84,3 +84,8 @@ public class ConsultaSQL extends JFrame {
                 } catch (Exception erro) {
                     JOptionPane.showMessageDialog(null, "Comando SQL inválido!" + erro.toString());
                 }
+            }
+        });
+    }
+}
+                            
