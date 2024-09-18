@@ -144,7 +144,29 @@ public class NavegaFilmes extends JFrame {
             }
         });
     }
+    
     public void carregarTabela() {
         String sql = "select * from filmes";
+        try {
+            statement = bd.connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+    } catch (SQLException erro) {
+            JOptionsPane.showMessagedialog(null, "Erro! " + erro.toString());
+    }
+    public void atualizarCampos() {
+        try {
+            if (resultSet.isAfterLast()) {
+                resultSet.last();
+            }
+            if (resultSet.isBeforeFirst()) {
+                resultSet.first();
+            }
+            tfCodigo.setText(resultSet.getString("codigo"));
+            tfTitulo.setText(resultSet.getString("titulo"));
+            tfGenero.setText(resultSet.getString("genero"));
+            tfProdutora.setText(resultSet.getString("produtora"));
+            tfDatcom.setText("" + resultSet.getdate("datacompra"));
+        } catch (SQLException erro) {
+        }
     }
 }
