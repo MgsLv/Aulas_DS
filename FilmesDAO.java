@@ -11,7 +11,6 @@ public class FilmesDAO {
 
     public FilmesDAO() {
         bd = new BD();
-        filme = new Filmes;
     }
     public boolean localizar() {
         sql = "select * from filmes where codigo = ?";
@@ -53,7 +52,7 @@ public class FilmesDAO {
                 statement = bd.connection.prepareStatement(sql);
                 statement.setString(1, filme.getCodigo());
             }
-            if (statement.execute() == 0) {
+            if (statement.executeUpdate() == 0) {
                 men = "Falha na operação!";
             }
         } catch (SQLException erro) {
