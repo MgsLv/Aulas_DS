@@ -64,7 +64,7 @@ class GuiCadastroFilmes extends JFrame {
         setResizable(false);
         setBotoes(true, true, false, false, false, false);
         filmes = new FilmesDAO();
-        if (!filmes.getConnection()) {
+        if (!filmes.bd.getConnection()) {
             JOptionPane.showMessageDialog(null, "Falha na conexão, o sistema será fechado!");
             System.exit(0);
         }
@@ -146,5 +146,41 @@ class GuiCadastroFilmes extends JFrame {
                 }
             }
         });
+        btLocalizar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                atualizarCampos();
+            }
+        });
+    }
+    public void limparCampos() {
+        tfCodigo.setText("");
+        tfTitulo.setText("");
+        tfGenero.setText("");
+        tfProdutora.setText("");
+        tfDataCompra.setText("");
+        tfCodigo.requestFocus();
+        setBotoes(true, true, false, false, false, false);
+    }
+    public void atualizarCampos() {
+        filmes.filme.setCodigo(tfCodigo.getText());
+        if (filmes.localizar()){
+            tfCodigo.setText(filmes.filme.getCodigo());
+            tfTitulo.setText(filmes.filme.getTitulo());
+            tfGenero.setText(filmes.filme.getGenero());
+            tfProdutora.setText(filmes.filme.getProdutora());
+            tfDataCompra.setText(filmes.filme.getDataCompra());
+            setBotoes(true, true, false, true, true, true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Filme não encontrado!");
+            limparCampos();
+        }
+    }
+    public void setBotoes(boolean bNovo, boolean bLocalizar, boolean bGravar, boolean bAlterar, boolean bExcluir, boolean bCancelar) {
+        btNovo.setEnabled(bNovo);
+        btLocalizar.setEnabled(bLocalizar);
+        btGravar.setEnabled(bGravar);
+        btAlterar.setEnabled(bAlterar);
+        btExcluir.setEnabled(bExcluir);
+        btCancelar.setEnabled(bCancelar);
     }
 }
